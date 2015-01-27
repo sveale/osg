@@ -314,7 +314,7 @@ osg::ref_ptr<SharedGeometry> GeometryPool::getOrCreateGeometry(osgTerrain::Terra
 
 #else
     bool smallTile = numVertices <= 16384;
-    GLenum primitiveTypes = _useGeometryShader ? GL_LINES_ADJACENCY : GL_QUADS;
+    GLenum primitiveTypes = _useGeometryShader ? GL_LINES_ADJACENCY_EXT : GL_QUADS;
     osg::ref_ptr<osg::DrawElements> elements = smallTile ?
         static_cast<osg::DrawElements*>(new osg::DrawElementsUShort(primitiveTypes)) :
         static_cast<osg::DrawElements*>(new osg::DrawElementsUInt(primitiveTypes));
@@ -640,7 +640,7 @@ osg::ref_ptr<osg::Program> GeometryPool::getOrCreateProgram(LayerTypes& layerTyp
         program->addShader(shader.get());
 
         program->setParameter( GL_GEOMETRY_VERTICES_OUT_EXT, 4 );
-        program->setParameter( GL_GEOMETRY_INPUT_TYPE_EXT, GL_LINES_ADJACENCY );
+        program->setParameter( GL_GEOMETRY_INPUT_TYPE_EXT, GL_LINES_ADJACENCY_EXT );
         program->setParameter( GL_GEOMETRY_OUTPUT_TYPE_EXT, GL_TRIANGLE_STRIP);
     }
 
