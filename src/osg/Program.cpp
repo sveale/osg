@@ -376,15 +376,15 @@ void Program::setParameter( GLenum pname, GLint value )
 {
     switch( pname )
     {
-        case GL_GEOMETRY_VERTICES_OUT_EXT:
+        case GL_GEOMETRY_VERTICES_OUT:
             _geometryVerticesOut = value;
             dirtyProgram();
             break;
-        case GL_GEOMETRY_INPUT_TYPE_EXT:
+        case GL_GEOMETRY_INPUT_TYPE:
             _geometryInputType = value;
             dirtyProgram();    // needed?
             break;
-        case GL_GEOMETRY_OUTPUT_TYPE_EXT:
+        case GL_GEOMETRY_OUTPUT_TYPE:
             _geometryOutputType = value;
             //dirtyProgram();    // needed?
             break;
@@ -401,9 +401,9 @@ GLint Program::getParameter( GLenum pname ) const
 {
     switch( pname )
     {
-        case GL_GEOMETRY_VERTICES_OUT_EXT: return _geometryVerticesOut;
-        case GL_GEOMETRY_INPUT_TYPE_EXT:   return _geometryInputType;
-        case GL_GEOMETRY_OUTPUT_TYPE_EXT:  return _geometryOutputType;
+        case GL_GEOMETRY_VERTICES_OUT: return _geometryVerticesOut;
+        case GL_GEOMETRY_INPUT_TYPE:   return _geometryInputType;
+        case GL_GEOMETRY_OUTPUT_TYPE:  return _geometryOutputType;
     }
     OSG_WARN << "getParameter invalid param " << pname << std::endl;
     return 0;
@@ -607,9 +607,9 @@ void Program::PerContextProgram::linkProgram(osg::State& state)
     {
         if (_extensions->isGeometryShader4Supported)
         {
-            _extensions->glProgramParameteri( _glProgramHandle, GL_GEOMETRY_VERTICES_OUT_EXT, _program->_geometryVerticesOut );
-            _extensions->glProgramParameteri( _glProgramHandle, GL_GEOMETRY_INPUT_TYPE_EXT, _program->_geometryInputType );
-            _extensions->glProgramParameteri( _glProgramHandle, GL_GEOMETRY_OUTPUT_TYPE_EXT, _program->_geometryOutputType );
+            _extensions->glProgramParameteri( _glProgramHandle, GL_GEOMETRY_VERTICES_OUT, _program->_geometryVerticesOut );
+            _extensions->glProgramParameteri( _glProgramHandle, GL_GEOMETRY_INPUT_TYPE, _program->_geometryInputType );
+            _extensions->glProgramParameteri( _glProgramHandle, GL_GEOMETRY_OUTPUT_TYPE, _program->_geometryOutputType );
         }
 
         // Detach removed shaders

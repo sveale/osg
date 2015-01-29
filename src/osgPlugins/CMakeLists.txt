@@ -123,6 +123,8 @@ ENDIF()
 #  3rd party 3d plugins
 #
 
+#ADD_SUBDIRECTORY(rvm)
+
 ADD_SUBDIRECTORY(3dc)
 
 ADD_SUBDIRECTORY(p3d)

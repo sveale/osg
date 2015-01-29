@@ -32,9 +32,9 @@ void Program::write(DataOutputStream* out){
 
     if ( out->getVersion() >= VERSION_0030 )
     {
-        out->writeInt(getParameter(GL_GEOMETRY_VERTICES_OUT_EXT));
-        out->writeInt(getParameter(GL_GEOMETRY_INPUT_TYPE_EXT));
-        out->writeInt(getParameter(GL_GEOMETRY_OUTPUT_TYPE_EXT));
+        out->writeInt(getParameter(GL_GEOMETRY_VERTICES_OUT));
+        out->writeInt(getParameter(GL_GEOMETRY_INPUT_TYPE));
+        out->writeInt(getParameter(GL_GEOMETRY_OUTPUT_TYPE));
     }
 
     const AttribBindingList& abl = getAttribBindingList();
@@ -80,9 +80,9 @@ void Program::read(DataInputStream* in)
 
     if ( in->getVersion() >= VERSION_0030 )
     {
-        setParameter(GL_GEOMETRY_VERTICES_OUT_EXT, in->readInt());
-        setParameter(GL_GEOMETRY_INPUT_TYPE_EXT, in->readInt());
-        setParameter(GL_GEOMETRY_OUTPUT_TYPE_EXT, in->readInt());
+        setParameter(GL_GEOMETRY_VERTICES_OUT, in->readInt());
+        setParameter(GL_GEOMETRY_INPUT_TYPE, in->readInt());
+        setParameter(GL_GEOMETRY_OUTPUT_TYPE, in->readInt());
     }
 
     // reading in shaders.
