@@ -135,12 +135,64 @@ public:
                     assignedToAll();
                     return true;
                 }
+                else if (ea.getKey()=='l')
+                {
+                    toggleDefine("LIGHTING");
+                    return true;
+                }
+                else if (ea.getKey()=='h')
+                {
+                    toggleDefine("HEIGHTFIELD_LAYER");
+                    return true;
+                }
+                else if (ea.getKey()=='t')
+                {
+                    toggleDefine("TEXTURE_2D");
+                    return true;
+                }
+                else if (ea.getKey()=='y')
+                {
+                    toggleDefine("COLOR_LAYER0");
+                    return true;
+                }
+                else if (ea.getKey()=='u')
+                {
+                    toggleDefine("COLOR_LAYER1");
+                    return true;
+                }
+                else if (ea.getKey()=='i')
+                {
+                    toggleDefine("COLOR_LAYER2");
+                    return true;
+                }
+                else if (ea.getKey()=='d')
+                {
+                    toggleDefine("COMPUTE_DIAGONALS", osg::StateAttribute::OFF);
+                    return true;
+                }
 
                 return false;
             }
             default:
                 return false;
         }
+    }
+
+    void toggleDefine(const std::string& defineName, int expectedDefault=osg::StateAttribute::ON)
+    {
+        osg::StateSet::DefineList& defineList = _terrain->getOrCreateStateSet()->getDefineList();
+        osg::StateSet::DefineList::iterator itr = defineList.find(defineName);
+        if (itr==defineList.end())
+        {
+            defineList[defineName].second = (expectedDefault | osg::StateAttribute::OVERRIDE); // assume the defines start off.
+            itr = defineList.find(defineName);
+        }
+
+        osg::StateSet::DefinePair& dp = itr->second;
+        if ( (dp.second & osg::StateAttribute::ON)==0) dp.second = (osg::StateAttribute::ON | osg::StateAttribute::OVERRIDE);
+        else dp.second = (osg::StateAttribute::OFF | osg::StateAttribute::OVERRIDE);
+
+
     }
 
 protected:
@@ -350,6 +402,11 @@ int main(int argc, char** argv)
             OSG_NOTICE<<"Settings affinity of DatabaseThread="<<thread<<" isRunning()="<<thread->isRunning()<<" cpuNum="<<cpuNum<<std::endl;
         }
     }
+
+    // following are tests of the #pragma(tic) shader composition
+    //terrain->getOrCreateStateSet()->setDefine("NUM_LIGHTS", "1");
+    //terrain->getOrCreateStateSet()->setDefine("LIGHTING"); // , osg::StateAttribute::OFF|osg::StateAttribute::OVERRIDE);
+    //terrain->getOrCreateStateSet()->setDefine("COMPUTE_DIAGONALS"); // , osg::StateAttribute::OFF|osg::StateAttribute::OVERRIDE);
 
     // run the viewers main loop
     return viewer.run();

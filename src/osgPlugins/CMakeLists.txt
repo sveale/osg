@@ -188,6 +188,9 @@ ADD_SUBDIRECTORY(txf)
 ADD_SUBDIRECTORY(bsp)
 ADD_SUBDIRECTORY(mdl)
 
+ADD_SUBDIRECTORY(gles)
+ADD_SUBDIRECTORY(osgjs)
+
 IF(OSG_CPP_EXCEPTIONS_AVAILABLE)
     ADD_SUBDIRECTORY(lwo)
     ADD_SUBDIRECTORY(ply)
@@ -278,13 +281,15 @@ IF ((LUA_LIBRARIES AND LUA_INCLUDE_DIR) OR (LUA_SOURCE_DIR AND LUA_INCLUDE_DIR) 
     ADD_SUBDIRECTORY(lua)
 ENDIF()
 
-IF (V8_FOUND)
-    ADD_SUBDIRECTORY(V8)
-ENDIF()
 
-IF (PYTHONLIBS_FOUND)
-    ADD_SUBDIRECTORY(python)
-ENDIF()
+# V8 and Python plugins are tests for linking against these libraries but aren't functionality beyond this.
+# IF (V8_FOUND)
+#     ADD_SUBDIRECTORY(V8)
+# ENDIF()
+#
+# IF (PYTHONLIBS_FOUND)
+#     ADD_SUBDIRECTORY(python)
+# ENDIF()
 
 ####################################################
 #
